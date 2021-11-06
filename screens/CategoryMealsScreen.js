@@ -5,7 +5,7 @@ import MealList from '../components/MealList';
 
 const CategoryMealScreen = props => {
   
-  const catId = props.navigation.getParam('categoryId');
+  const catId = props.route.params?.categoryId;
 
   const displayedMeals = MEALS.filter(
     meal => meal.categoryIds.indexOf(catId) >= 0
@@ -15,7 +15,7 @@ const CategoryMealScreen = props => {
 };
 
 CategoryMealScreen.navigationOptions = navigationData => {
-  const catId = navigationData.navigation.getParam('categoryId');
+  const catId = navigationData.route.params?.categoryId;
 
   const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
 
