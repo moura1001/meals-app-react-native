@@ -1,9 +1,9 @@
 import React from 'react';
 import { Platform, Text } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
-import { createMaterialBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
@@ -12,7 +12,7 @@ import FavoritesScreen from '../screens/FavoritesScreen';
 import FiltersScreen from '../screens/FiltersScreen';
 import Colors from '../constants/Colors';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const defaultStackNavOptions = {
   headerStyle: {
@@ -110,7 +110,7 @@ function FavNavigator(){
   }
 );*/
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 function MealsFavTabNavigator(){
   return(
