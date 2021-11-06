@@ -152,7 +152,7 @@ function MealsFavTabNavigator(){
         }}
       />
       <Tab.Screen
-        name="Favorites"
+        name="Preferred"
         component={FavNavigator}
         options={{
           tabBarIcon: tabInfo => {
@@ -294,7 +294,7 @@ function MainNavigator(){
         }}
       />
       <Drawer.Screen
-        name="Filters"
+        name="Preferences"
         component={FiltersNavigator}
         //options={{
         //  title: 'Awesome app',
