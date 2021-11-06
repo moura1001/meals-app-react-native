@@ -3,7 +3,7 @@ import { Platform, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoryMealsScreen from '../screens/CategoryMealsScreen';
@@ -110,7 +110,7 @@ function FavNavigator(){
   }
 );*/
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 function MealsFavTabNavigator(){
   return(
@@ -118,19 +118,19 @@ function MealsFavTabNavigator(){
       //initialRouteName="Feed"
       screenOptions={  Platform.OS === 'android'
       ? {
-          activeTintColor: 'white',
+          activeColor: 'white',
           shifting: true,
           barStyle: {
             backgroundColor: Colors.primaryColor
           }
         }
       : {
-          tabBarOptions: {
-            labelStyle: {
-              fontFamily: 'open-sans'
-            },
-            activeTintColor: Colors.accentColor
-          }
+          //tabBarOptions: {
+          //  labelStyle: {
+          //    fontFamily: 'open-sans'
+          //  },
+            activeColor: Colors.accentColor
+          //}
         }}
     >
       <Tab.Screen
@@ -215,7 +215,7 @@ const MealsFavTabNavigator =
           backgroundColor: Colors.primaryColor
         }
       })
-    : createBottomTabNavigator(tabScreenConfig, {
+    : createMaterialBottomTabNavigator(tabScreenConfig, {
         tabBarOptions: {
           labelStyle: {
             fontFamily: 'open-sans'
