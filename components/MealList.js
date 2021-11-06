@@ -14,7 +14,7 @@ const MealList = props => {
         affordability={itemData.item.affordability}
         onSelectMeal={() => {
           props.navigation.navigate({
-            routeName: 'MealDetail',
+            name: 'MealDetail',
             params: {
               mealId: itemData.item.id
             }
