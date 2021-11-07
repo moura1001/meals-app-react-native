@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app02",
-    "slug": "app02",
+    "name": "RN Guide",
+    "slug": "rn-complete-guide",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

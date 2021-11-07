@@ -283,7 +283,8 @@ function MainNavigator(){
       drawerActiveTintColor: Colors.accentColor,
       drawerLabelStyle: {
         fontFamily: 'open-sans-bold'
-      }
+      },
+      headerShown: false
     }}
     >
       <Drawer.Screen

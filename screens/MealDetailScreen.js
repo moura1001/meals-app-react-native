@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ScrollView,
   View,
@@ -26,6 +26,10 @@ const MealDetailScreen = props => {
 
   const selectedMeal = MEALS.find(meal => meal.id === mealId);
 
+  useEffect(() => {
+    props.navigation.setOptions(navigationOptions(props.route));
+  }, []);
+
   return (
     <ScrollView>
       <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
@@ -46,12 +50,12 @@ const MealDetailScreen = props => {
   );
 };
 
-MealDetailScreen.navigationOptions = navigationData => {
-  const mealId = navigationData.route.params?.mealId;
+const navigationOptions = route => {
+  const mealId = route.params?.mealId;
   const selectedMeal = MEALS.find(meal => meal.id === mealId);
   return {
     headerTitle: selectedMeal.title,
-    headerRight: (
+    headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Favorite"

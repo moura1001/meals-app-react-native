@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -30,6 +30,10 @@ const CategoriesScreen = props => {
     );
   };
 
+  useEffect(() => {
+    props.navigation.setOptions(navigationOptions(props.navigation));
+  }, []);
+
   return (
     <FlatList
       keyExtractor={(item, index) => item.id}
@@ -40,16 +44,16 @@ const CategoriesScreen = props => {
   );
 };
 
-CategoriesScreen.navigationOptions = navData => {
+const navigationOptions = navigation => {
   return {
     headerTitle: 'Meal Categories',
-    headerLeft: (
+    headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Menu"
           iconName="ios-menu"
           onPress={() => {
-            navData.navigation.toggleDrawer();
+            navigation.toggleDrawer();
           }}
         />
       </HeaderButtons>

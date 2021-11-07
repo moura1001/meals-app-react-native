@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { CATEGORIES, MEALS } from '../data/dummy-data';
 import MealList from '../components/MealList';
@@ -11,11 +11,15 @@ const CategoryMealScreen = props => {
     meal => meal.categoryIds.indexOf(catId) >= 0
   );
 
+  useEffect(() => {
+    props.navigation.setOptions(navigationOptions(props.route));
+  }, []);
+
   return <MealList listData={displayedMeals} navigation={props.navigation} />;
 };
 
-CategoryMealScreen.navigationOptions = navigationData => {
-  const catId = navigationData.route.params?.categoryId;
+const navigationOptions = route => {
+  const catId = route.params?.categoryId;
 
   const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
 
