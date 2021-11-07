@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import HeaderButton from '../components/HeaderButton';
@@ -7,19 +7,24 @@ import { MEALS } from '../data/dummy-data';
 
 const FavoritesScreen = props => {
   const favMeals = MEALS.filter(meal => meal.id === 'm1' || meal.id === 'm2');
+
+  useEffect(() => {
+    props.navigation.setOptions(navigationOptions(props.navigation));
+  }, []);
+
   return <MealList listData={favMeals} navigation={props.navigation} />;
 };
 
-FavoritesScreen.navigationOptions = navData => {
+const navigationOptions = navigation => {
   return {
     headerTitle: 'Your Favorites',
-    headerLeft: (
+    headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Menu"
           iconName="ios-menu"
           onPress={() => {
-            navData.navigation.toggleDrawer();
+            navigation.toggleDrawer();
           }}
         />
       </HeaderButtons>
