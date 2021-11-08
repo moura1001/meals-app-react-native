@@ -31,91 +31,46 @@ const defaultStackNavOptions = {
 function MealsNavigator(){
   return(
     <Stack.Navigator
-    //initialRouteName="Home"
-    screenOptions={defaultStackNavOptions}
+      screenOptions={defaultStackNavOptions}
     >
       <Stack.Screen
         name="Categories"
         component={CategoriesScreen}
-        //options={{
-        //  title: 'Awesome app',
-        //}}
       />
       <Stack.Screen
         name="CategoryMeals"
         component={CategoryMealsScreen}
-        //options={{
-        //  title: 'My profile',
-        //}}
       />
       <Stack.Screen
         name="MealDetail"
         component={MealDetailScreen}
-        //options={{
-        //  gestureEnabled: false,
-        //}}
       />
     </Stack.Navigator>
   );
 }
-
-/*const MealsNavigator = createStackNavigator(
-  {
-    Categories: {
-      screen: CategoriesScreen
-    },
-    CategoryMeals: {
-      screen: CategoryMealsScreen
-    },
-    MealDetail: MealDetailScreen
-  },
-  {
-    // initialRouteName: 'Categories',
-    defaultNavigationOptions: defaultStackNavOptions
-  }
-);*/
 
 function FavNavigator(){
   return(
     <Stack.Navigator
-    //initialRouteName="Home"
-    screenOptions={defaultStackNavOptions}
+      screenOptions={defaultStackNavOptions}
     >
       <Stack.Screen
         name="Favorites"
         component={FavoritesScreen}
-        //options={{
-        //  title: 'Awesome app',
-        //}}
       />
       <Stack.Screen
         name="MealDetail"
         component={MealDetailScreen}
-        //options={{
-        //  title: 'My profile',
-        //}}
       />
     </Stack.Navigator>
   );
 }
-
-/*const FavNavigator = createStackNavigator(
-  {
-    Favorites: FavoritesScreen,
-    MealDetail: MealDetailScreen
-  },
-  {
-    // initialRouteName: 'Categories',
-    defaultNavigationOptions: defaultStackNavOptions
-  }
-);*/
 
 const Tab = createMaterialBottomTabNavigator();
 
 function MealsFavTabNavigator(){
   return(
     <Tab.Navigator
-      //initialRouteName="Feed"
       screenOptions={  Platform.OS === 'android'
       ? {
           activeColor: 'white',
@@ -125,12 +80,7 @@ function MealsFavTabNavigator(){
           }
         }
       : {
-          //tabBarOptions: {
-          //  labelStyle: {
-          //    fontFamily: 'open-sans'
-          //  },
-            activeColor: Colors.accentColor
-          //}
+          activeColor: Colors.accentColor
         }}
     >
       <Tab.Screen
@@ -171,83 +121,14 @@ function MealsFavTabNavigator(){
   );
 }
 
-/*const tabScreenConfig = {
-  Meals: {
-    screen: MealsNavigator,
-    navigationOptions: {
-      tabBarIcon: tabInfo => {
-        return (
-          <Ionicons name="ios-restaurant" size={25} color={tabInfo.tintColor} />
-        );
-      },
-      tabBarColor: Colors.primaryColor,
-      tabBarLabel:
-        Platform.OS === 'android' ? (
-          <Text style={{ fontFamily: 'open-sans-bold' }}>Meals</Text>
-        ) : (
-          'Meals'
-        )
-    }
-  },
-  Favorites: {
-    screen: FavNavigator,
-    navigationOptions: {
-      tabBarIcon: tabInfo => {
-        return <Ionicons name="ios-star" size={25} color={tabInfo.tintColor} />;
-      },
-      tabBarColor: Colors.accentColor,
-      tabBarLabel:
-        Platform.OS === 'android' ? (
-          <Text style={{ fontFamily: 'open-sans-bold' }}>Favorites</Text>
-        ) : (
-          'Favorites'
-        )
-    }
-  }
-};
-
-const MealsFavTabNavigator =
-  Platform.OS === 'android'
-    ? createMaterialBottomTabNavigator(tabScreenConfig, {
-        activeTintColor: 'white',
-        shifting: true,
-        barStyle: {
-          backgroundColor: Colors.primaryColor
-        }
-      })
-    : createMaterialBottomTabNavigator(tabScreenConfig, {
-        tabBarOptions: {
-          labelStyle: {
-            fontFamily: 'open-sans'
-          },
-          activeTintColor: Colors.accentColor
-        }
-      });*/
-
-/*const FiltersNavigator = createStackNavigator(
-  {
-    Filters: FiltersScreen
-  },
-  {
-    // navigationOptions: {
-    //   drawerLabel: 'Filters!!!!'
-    // },
-    defaultNavigationOptions: defaultStackNavOptions
-  }
-);*/
-
 function FiltersNavigator(){
   return(
     <Stack.Navigator
-    //initialRouteName="Home"
-    screenOptions={defaultStackNavOptions}
+      screenOptions={defaultStackNavOptions}
     >
       <Stack.Screen
         name="Filters"
         component={FiltersScreen}
-        //options={{
-        //  title: 'Awesome app',
-        //}}
       />
     </Stack.Navigator>
   );
@@ -255,30 +136,9 @@ function FiltersNavigator(){
 
 const Drawer = createDrawerNavigator();
 
-/*const MainNavigator = createDrawerNavigator(
-  {
-    MealsFavs: {
-      screen: MealsFavTabNavigator,
-      navigationOptions: {
-        drawerLabel: 'Meals'
-      }
-    },
-    Filters: FiltersNavigator
-  },
-  {
-    contentOptions: {
-      activeTintColor: Colors.accentColor,
-      labelStyle: {
-        fontFamily: 'open-sans-bold'
-      }
-    }
-  }
-);*/
-
 function MainNavigator(){
   return(
     <Drawer.Navigator
-    //initialRouteName="Home"
     screenOptions={{
       drawerActiveTintColor: Colors.accentColor,
       drawerLabelStyle: {
@@ -297,9 +157,6 @@ function MainNavigator(){
       <Drawer.Screen
         name="Preferences"
         component={FiltersNavigator}
-        //options={{
-        //  title: 'Awesome app',
-        //}}
       />
     </Drawer.Navigator>
   );
