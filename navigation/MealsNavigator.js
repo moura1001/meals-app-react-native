@@ -11,6 +11,8 @@ import MealDetailScreen from '../screens/MealDetailScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import FiltersScreen from '../screens/FiltersScreen';
 import Colors from '../constants/Colors';
+import LoginScreen from '../screens/LoginScreen';
+import RegistrationScreen from '../screens/RegistrationScreen';
 
 const Stack = createStackNavigator();
 
@@ -162,4 +164,33 @@ function MainNavigator(){
   );
 }
 
-export default MainNavigator;
+function EntryNavigator(){
+  return(
+    <Stack.Navigator
+      screenOptions={({ route }) => (
+        route.name !== "Home"
+        ? defaultStackNavOptions
+        : {
+            headerShown: false,
+            headerLeft: null
+          }
+        )
+      }
+    >
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+      />
+      <Stack.Screen
+        name="Registration"
+        component={RegistrationScreen}
+      />
+      <Stack.Screen
+        name="Home"
+        component={MainNavigator}
+      />
+    </Stack.Navigator>
+  );
+}
+
+export default EntryNavigator;
