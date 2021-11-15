@@ -13,6 +13,9 @@ import { CATEGORIES } from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
 
 const CategoriesScreen = props => {
+  const { navigation, route } = props;
+  const nickname = props.route.params?.nickname
+  
   const renderGridItem = itemData => {
     return (
       <CategoryGridTile
@@ -31,7 +34,7 @@ const CategoriesScreen = props => {
   };
 
   useEffect(() => {
-    props.navigation.setOptions(navigationOptions(props.navigation));
+    navigation.setOptions(navigationOptions(navigation, nickname));
   }, []);
 
   return (
@@ -44,9 +47,10 @@ const CategoriesScreen = props => {
   );
 };
 
-const navigationOptions = navigation => {
+const navigationOptions = (navigation, nickname) => {
+  console.log(nickname)
   return {
-    headerTitle: 'Meal Categories',
+    headerTitle: (nickname != undefined ? nickname : 'Meal Categories'),
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
