@@ -11,10 +11,11 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import { CATEGORIES } from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
+import Firebase from '../config/firebase';
 
 const CategoriesScreen = props => {
   const { navigation, route } = props;
-  const nickname = props.route.params?.nickname
+  const nickname = route.params?.nickname
   
   const renderGridItem = itemData => {
     return (
@@ -48,7 +49,14 @@ const CategoriesScreen = props => {
 };
 
 const navigationOptions = (navigation, nickname) => {
-  console.log(nickname)
+  const signOut = async () => {
+    try {
+      await Firebase.auth().signOut();
+      navigation.goBack();
+    } catch(error) {
+      console.log(error);
+    }
+  }
   return {
     headerTitle: (nickname != undefined ? nickname : 'Meal Categories'),
     headerLeft: () => (
@@ -59,6 +67,15 @@ const navigationOptions = (navigation, nickname) => {
           onPress={() => {
             navigation.toggleDrawer();
           }}
+        />
+      </HeaderButtons>
+    ),
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Exit"
+          iconName="ios-exit"
+          onPress={signOut}
         />
       </HeaderButtons>
     )
