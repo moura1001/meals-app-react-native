@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
   ScrollView,
   View,
@@ -8,10 +8,11 @@ import {
   StyleSheet
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { MEALS } from '../data/dummy-data';
 import HeaderButton from '../components/HeaderButton';
 import DefaultText from '../components/DefaultText';
+import { toggleFavorite } from '../store/actions/meals';
 
 const ListItem = props => {
   return (
@@ -22,13 +23,34 @@ const ListItem = props => {
 };
 
 const MealDetailScreen = props => {
-  const mealId = props.route.params?.mealId;
+  const { navigation, route } = props;
 
-  const selectedMeal = MEALS.find(meal => meal.id === mealId);
+  const availableMeals = useSelector(state => state.meals.meals);
+  
+  const mealId = route.params?.mealId;
+  
+  const selectedMeal = availableMeals.find(meal => meal.id === mealId);
+
+  const currentMealIsFavorite = useSelector(state =>
+    state.meals.favoriteMeals.some(meal => meal.id === mealId));
+
+  const dispatch = useDispatch();
+
+  const toggleFavoriteHandler = useCallback(() => {
+    dispatch(toggleFavorite(mealId));
+  }, [dispatch, mealId]);
 
   useEffect(() => {
-    props.navigation.setOptions(navigationOptions(props.route));
-  }, []);
+    navigation.setParams({ toggleFavorite: toggleFavoriteHandler });
+  }, [toggleFavoriteHandler]);
+
+  useEffect(() => {
+    navigation.setParams({ isFavorite: currentMealIsFavorite });
+  }, [currentMealIsFavorite]);
+
+  useEffect(() => {
+    navigation.setOptions(navigationOptions(route, selectedMeal));
+  }, [route]);
 
   return (
     <ScrollView>
@@ -50,19 +72,17 @@ const MealDetailScreen = props => {
   );
 };
 
-const navigationOptions = route => {
-  const mealId = route.params?.mealId;
-  const selectedMeal = MEALS.find(meal => meal.id === mealId);
+const navigationOptions = (route, selectedMeal) => {
+  const toggleFavorite = route.params?.toggleFavorite;
+  const isFavorite = route.params?.isFavorite;
   return {
     headerTitle: selectedMeal.title,
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Favorite"
-          iconName="ios-star"
-          onPress={() => {
-            console.log('Mark as favorite!');
-          }}
+          iconName={isFavorite? "ios-star": "ios-star-outline"}
+          onPress={toggleFavorite}
         />
       </HeaderButtons>
     )
