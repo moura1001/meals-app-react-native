@@ -11,7 +11,8 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/HeaderButton';
 import { CATEGORIES } from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
-import Firebase from '../config/firebase';
+import { auth } from '../config/firebase';
+import { signOut } from 'firebase/auth';
 
 const CategoriesScreen = props => {
   const { navigation, route } = props;
@@ -49,9 +50,9 @@ const CategoriesScreen = props => {
 };
 
 const navigationOptions = (navigation, nickname) => {
-  const signOut = async () => {
+  const logout = async () => {
     try {
-      await Firebase.auth().signOut();
+      await signOut(auth);
       navigation.goBack();
     } catch(error) {
       console.log(error);
@@ -75,7 +76,7 @@ const navigationOptions = (navigation, nickname) => {
         <Item
           title="Exit"
           iconName="ios-exit"
-          onPress={signOut}
+          onPress={logout}
         />
       </HeaderButtons>
     )

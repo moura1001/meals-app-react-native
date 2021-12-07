@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import ErrorMessage from '../components/ErrorMessage';
-import Firebase from '../config/firebase';
+import { auth } from '../config/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function RegistrationScreen({ navigation }) {
   const [nickname, setNickname] = useState('');
@@ -20,8 +21,7 @@ export default function RegistrationScreen({ navigation }) {
           && confirmPassword !== '') {
         
         if(password === confirmPassword){
-          await Firebase.auth()
-            .createUserWithEmailAndPassword(email, password);
+          await createUserWithEmailAndPassword(auth, email, password);
         
           navigation.navigate({
             name: 'Home',

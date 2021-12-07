@@ -1,6 +1,6 @@
-import firebase from "firebase/compat/app";
+import { initializeApp } from 'firebase/app';
 //import { getAnalytics } from "firebase/analytics";
-import 'firebase/compat/auth';
+import { getAuth } from 'firebase/auth';
 import Constants from 'expo-constants';
 
 const firebaseConfig = {
@@ -13,11 +13,7 @@ const firebaseConfig = {
   measurementId: Constants.manifest.extra.measurementId
 };
 
-let Firebase;
-
-if(firebase.apps.length === 0) {
-    Firebase = firebase.initializeApp(firebaseConfig);
-}
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
 
 //const analytics = getAnalytics(app);
-export default Firebase;

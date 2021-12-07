@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import ErrorMessage from '../components/ErrorMessage';
-import Firebase from '../config/firebase';
+import { auth } from '../config/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -15,8 +16,7 @@ export default function LoginScreen({ navigation }) {
   const onLoginPress = async () => {
     try {
       if(email !== '' && password !== '') {
-        await Firebase.auth()
-          .signInWithEmailAndPassword(email, password);
+        await signInWithEmailAndPassword(auth, email, password);
         
         navigation.navigate("Home");
       }
