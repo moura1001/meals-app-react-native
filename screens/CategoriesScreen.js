@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -7,16 +7,32 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useDispatch } from 'react-redux';
 
 import HeaderButton from '../components/HeaderButton';
 import { CATEGORIES } from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
 import { auth } from '../config/firebase';
 import { signOut } from 'firebase/auth';
+import { getFilters } from '../store/actions/meals';
 
 const CategoriesScreen = props => {
   const { navigation, route } = props;
   const nickname = route.params?.nickname
+
+  const dispatch = useDispatch();
+
+  const loadFilters = useCallback(async () =>{
+    try {
+      await dispatch(getFilters());
+      console.log("Preferences loaded successfully")
+    } catch (error) {
+      console.log(error.message);
+      alert("Sorry, something went wrong on fetch saved preferences.");
+    }
+  }, [dispatch]);
+
+  useEffect(loadFilters, []);
   
   const renderGridItem = itemData => {
     return (

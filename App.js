@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
 import MainNavigator from './navigation/MealsNavigator';
 import mealsReducer from './store/reducers/meals';
@@ -18,7 +19,7 @@ const fetchFonts = () => {
 const rootReducer = combineReducers({
   meals: mealsReducer
 });
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);

@@ -3,6 +3,7 @@ import { TOGGLE_FAVORITE, SET_FILTERS } from "../actions/meals"
 
 const initialState = {
   meals: MEALS,
+  filters: {},
   filteredMeals: [],
   favoriteMeals: []
 };
@@ -39,7 +40,9 @@ const mealsReducer = (state = initialState, action) => {
         }
         return true;
       });
-      return { ...state, filteredMeals: updatedFilteredMeals };
+      return { ...state,
+        filteredMeals: updatedFilteredMeals,
+        filters: appliedFilters };
     
     default:
       return state;
