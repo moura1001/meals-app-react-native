@@ -41,7 +41,6 @@ export default function useCategories() {
   }, []);
 
   useEffect(() => {
-    console.log("Updated categories: ", categoriesState);
     setCategories(categoriesState);
   }, [categoriesState]);
 

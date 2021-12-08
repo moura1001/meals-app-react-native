@@ -1,38 +1,25 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import {
   FlatList,
   StyleSheet,
   ActivityIndicator
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useDispatch } from 'react-redux';
 
 import HeaderButton from '../components/HeaderButton';
 import CategoryGridTile from '../components/CategoryGridTile';
 import { auth } from '../config/firebase';
 import { signOut } from 'firebase/auth';
-import { getFilters } from '../store/actions/meals';
 import useCategories from '../hooks/useCategories';
+import loadAppData from '../hooks/loadAppData';
 
 const CategoriesScreen = props => {
   const { navigation, route } = props;
   const nickname = route.params?.nickname;
 
+  loadAppData();
+  
   const { categories, loading } = useCategories();
-
-  const dispatch = useDispatch();
-
-  const loadAppData = useCallback(async () =>{
-    try {
-      await dispatch(getFilters());
-      console.log("Preferences loaded successfully");
-    } catch (error) {
-      console.log(error.message);
-      alert("Sorry, something went wrong on fetch data.");
-    }
-  }, [dispatch]);
-
-  useEffect(loadAppData, []);
   
   const renderGridItem = itemData => {
     return (
