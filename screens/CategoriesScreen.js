@@ -15,24 +15,28 @@ import CategoryGridTile from '../components/CategoryGridTile';
 import { auth } from '../config/firebase';
 import { signOut } from 'firebase/auth';
 import { getFilters } from '../store/actions/meals';
+import { getCategories } from '../store/actions/categories';
 
 const CategoriesScreen = props => {
   const { navigation, route } = props;
-  const nickname = route.params?.nickname
+  const nickname = route.params?.nickname;
 
   const dispatch = useDispatch();
 
-  const loadFilters = useCallback(async () =>{
+  const loadAppData = useCallback(async () =>{
     try {
       await dispatch(getFilters());
-      console.log("Preferences loaded successfully")
+      console.log("Preferences loaded successfully");
+
+      await dispatch(getCategories());
+      console.log("Categories loaded successfully");
     } catch (error) {
       console.log(error.message);
-      alert("Sorry, something went wrong on fetch saved preferences.");
+      alert("Sorry, something went wrong on fetch data.");
     }
   }, [dispatch]);
 
-  useEffect(loadFilters, []);
+  useEffect(loadAppData, []);
   
   const renderGridItem = itemData => {
     return (
