@@ -65,6 +65,11 @@ export const getMeals = () => {
         type: SET_MEALS,
         meals
       });
+
+      dispatch({
+        type: SET_FILTERS,
+        filters: getState().meals.filters
+      });
     
     } catch (error) {
       throw error;
