@@ -1,8 +1,7 @@
-import { MEALS } from "../../data/dummy-data";
-import { TOGGLE_FAVORITE, SET_FILTERS } from "../actions/meals"
+import { TOGGLE_FAVORITE, SET_FILTERS, SET_MEALS } from "../actions/meals"
 
 const initialState = {
-  meals: MEALS,
+  meals: [],
   filters: {},
   filteredMeals: [],
   favoriteMeals: []
@@ -43,6 +42,9 @@ const mealsReducer = (state = initialState, action) => {
       return { ...state,
         filteredMeals: updatedFilteredMeals,
         filters: appliedFilters };
+    
+    case SET_MEALS:
+      return { ...state, meals: action.meals };
     
     default:
       return state;

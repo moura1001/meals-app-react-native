@@ -1,7 +1,8 @@
 import { firestore } from "../../config/firebase";
 import {
   collection, getDocs,
-  doc, setDoc
+  doc, setDoc,
+  query, orderBy
 } from "firebase/firestore";
 
 export const TOGGLE_FAVORITE = "TOGGLE_FAVORITE";
@@ -40,6 +41,29 @@ export const getFilters = () => {
       dispatch({
         type: SET_FILTERS,
         filters
+      });
+    
+    } catch (error) {
+      throw error;
+    }
+  }
+};
+
+export const SET_MEALS = "SET_MEALS";
+export const getMeals = () => {
+  return async (dispatch, getState) => {
+    try {
+      const meals = [];
+      const colRef = collection(firestore, "meals");
+      const q = query(colRef, orderBy("id"));
+      const snapshot = await getDocs(q);
+      snapshot.docs.forEach((doc) => {
+        meals.push(doc.data());
+      });
+
+      dispatch({
+        type: SET_MEALS,
+        meals
       });
     
     } catch (error) {

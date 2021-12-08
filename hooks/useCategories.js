@@ -14,7 +14,7 @@ export default function useCategories() {
   const loadCategories = useCallback(async () =>{
     try {
       await dispatch(getCategories());
-      console.log("Categories loaded successfully");
+      console.log("Categories have been loaded successfully");
     } catch (error) {
       throw error;
     }
