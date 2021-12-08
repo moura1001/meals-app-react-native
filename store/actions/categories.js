@@ -15,6 +15,11 @@ export const getCategories = () => {
       snapshot.docs.forEach((doc) => {
         categories.push(doc.data());
       });
+
+      dispatch({
+        type: SET_CATEGORIES,
+        categories
+      });
     
     } catch (error) {
       throw error;

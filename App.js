@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 
 import MainNavigator from './navigation/MealsNavigator';
 import mealsReducer from './store/reducers/meals';
+import categoriesReducer from './store/reducers/categories';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -17,7 +18,8 @@ const fetchFonts = () => {
 };
 
 const rootReducer = combineReducers({
-  meals: mealsReducer
+  meals: mealsReducer,
+  categories: categoriesReducer
 });
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
