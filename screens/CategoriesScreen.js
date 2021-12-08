@@ -7,10 +7,9 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import HeaderButton from '../components/HeaderButton';
-import { CATEGORIES } from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
 import { auth } from '../config/firebase';
 import { signOut } from 'firebase/auth';
@@ -20,6 +19,8 @@ import { getCategories } from '../store/actions/categories';
 const CategoriesScreen = props => {
   const { navigation, route } = props;
   const nickname = route.params?.nickname;
+
+  const categories = useSelector(state => state.categories.categories);
 
   const dispatch = useDispatch();
 
@@ -62,7 +63,7 @@ const CategoriesScreen = props => {
   return (
     <FlatList
       keyExtractor={(item, index) => item.id}
-      data={CATEGORIES}
+      data={categories}
       renderItem={renderGridItem}
       numColumns={2}
     />
