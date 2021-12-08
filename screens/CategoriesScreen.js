@@ -1,26 +1,24 @@
 import React, { useEffect, useCallback } from 'react';
 import {
-  View,
-  Text,
   FlatList,
   StyleSheet,
-  TouchableOpacity
+  ActivityIndicator
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import HeaderButton from '../components/HeaderButton';
 import CategoryGridTile from '../components/CategoryGridTile';
 import { auth } from '../config/firebase';
 import { signOut } from 'firebase/auth';
 import { getFilters } from '../store/actions/meals';
-import { getCategories } from '../store/actions/categories';
+import useCategories from '../hooks/useCategories';
 
 const CategoriesScreen = props => {
   const { navigation, route } = props;
   const nickname = route.params?.nickname;
 
-  const categories = useSelector(state => state.categories.categories);
+  const { categories, loading } = useCategories();
 
   const dispatch = useDispatch();
 
@@ -28,9 +26,6 @@ const CategoriesScreen = props => {
     try {
       await dispatch(getFilters());
       console.log("Preferences loaded successfully");
-
-      await dispatch(getCategories());
-      console.log("Categories loaded successfully");
     } catch (error) {
       console.log(error.message);
       alert("Sorry, something went wrong on fetch data.");
@@ -66,6 +61,13 @@ const CategoriesScreen = props => {
       data={categories}
       renderItem={renderGridItem}
       numColumns={2}
+      ListEmptyComponent={() => {
+        if(loading){
+          return <ActivityIndicator size="large" color="#0000ff" />
+        }
+        
+        return null;
+      }}
     />
   );
 };
