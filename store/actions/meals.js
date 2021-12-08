@@ -6,10 +6,25 @@ import {
 } from "firebase/firestore";
 
 export const TOGGLE_FAVORITE = "TOGGLE_FAVORITE";
-export const toggleFavorite = (mealId) => ({
-  type: TOGGLE_FAVORITE,
-  mealId
-});
+export const toggleFavorite = (mealId) => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: TOGGLE_FAVORITE,
+        mealId
+      });
+
+      const favoriteMeals = getState().meals.favoriteMeals;
+      const colRef = collection(firestore, "favoriteMeals");
+      const snapshot = await getDocs(colRef);
+      const docRef = doc(firestore, "favoriteMeals", snapshot.docs[0].id);
+      await setDoc(docRef, {...favoriteMeals});
+    
+    } catch (error) {
+      throw error;
+    }
+  }
+};
 
 export const SET_FILTERS = "SET_FILTERS";
 export const setFilters = (filters) => {
