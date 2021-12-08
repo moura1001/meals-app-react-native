@@ -33,7 +33,7 @@ const FiltersScreen = props => {
 
   const dispatch = useDispatch();
   
-  const saveFilters = useCallback(() => {
+  const saveFilters = useCallback(async () => {
     const appliedFilters = {
       glutenFree: isGlutenFree,
       lactoseFree: isLactoseFree,
@@ -42,8 +42,14 @@ const FiltersScreen = props => {
     };
 
     console.log(appliedFilters);
-    dispatch(setFilters(appliedFilters));
-  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
+    try {
+      await dispatch(setFilters(appliedFilters));
+      console.log("Saved preferences successfully");
+    } catch (error) {
+      console.log(error.message);
+      alert("Sorry, something went wrong on saved preferences.");
+    }
+  }, [dispatch, isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
 
   useEffect(() => {
     navigation.setParams({ save: saveFilters });
