@@ -1,7 +1,7 @@
 import { firestore } from "../../config/firebase";
 import {
   collection, getDocs,
-  doc, setDoc,
+  doc, setDoc, getDoc,
   query, orderBy
 } from "firebase/firestore";
 
@@ -18,7 +18,7 @@ export const toggleFavorite = (mealId) => {
       const colRef = collection(firestore, "favoriteMeals");
       const snapshot = await getDocs(colRef);
       const docRef = doc(firestore, "favoriteMeals", snapshot.docs[0].id);
-      await setDoc(docRef, {...favoriteMeals});
+      await setDoc(docRef, {favorities: favoriteMeals});
     
     } catch (error) {
       throw error;
@@ -84,6 +84,27 @@ export const getMeals = () => {
       dispatch({
         type: SET_FILTERS,
         filters: getState().meals.filters
+      });
+    
+    } catch (error) {
+      throw error;
+    }
+  }
+};
+
+export const SET_FAVORITE_MEALS = "SET_FAVORITE_MEALS";
+export const getFavoriteMeals = () => {
+  return async (dispatch, getState) => {
+    try {
+      const colRef = collection(firestore, "favoriteMeals");
+      const snapshot = await getDocs(colRef);
+      const docRef = doc(firestore, "favoriteMeals", snapshot.docs[0].id);
+      const d = await getDoc(docRef);
+      const favoriteMeals = d.data().favorities;
+      
+      dispatch({
+        type: SET_FAVORITE_MEALS,
+        favoriteMeals
       });
     
     } catch (error) {

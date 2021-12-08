@@ -1,4 +1,6 @@
-import { TOGGLE_FAVORITE, SET_FILTERS, SET_MEALS } from "../actions/meals"
+import {
+  TOGGLE_FAVORITE, SET_FILTERS, SET_MEALS, SET_FAVORITE_MEALS
+} from "../actions/meals"
 
 const initialState = {
   meals: [],
@@ -45,6 +47,9 @@ const mealsReducer = (state = initialState, action) => {
     
     case SET_MEALS:
       return { ...state, meals: action.meals };
+    
+    case SET_FAVORITE_MEALS:
+      return { ...state, favoriteMeals: action.favoriteMeals };
     
     default:
       return state;
